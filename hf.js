@@ -45,7 +45,7 @@ async function fetchDiscordAvatar() {
   try {
     const response = await fetch(`https://discord.com/api/users/${userId}`, {
       headers: {
-        'Authorization': `Bot YOUR_BOT_TOKEN`
+        'Authorization': `MTI2MjM5MjA5NDI2MjMwMDcxNQ.GRgeyw.PagP9mAThIjFWGbZtbdTQjWaHJ-A3h5ZaKyXFY`
       }
     });
     const data = await response.json();
