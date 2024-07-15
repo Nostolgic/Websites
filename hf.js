@@ -37,6 +37,33 @@ function toggleMode() {
   }
 }
 
+
+async function fetchDiscordAvatar() {
+  const avatarImg = document.getElementById('discord-avatar');
+  const userId = avatarImg.getAttribute('data-user-id');
+  
+  try {
+    const response = await fetch(`https://discord.com/api/users/${userId}`, {
+      headers: {
+        'Authorization': `Bot YOUR_BOT_TOKEN`
+      }
+    });
+    const data = await response.json();
+    if (data.avatar) {
+      const avatarUrl = `https://cdn.discordapp.com/avatars/${userId}/${data.avatar}.png?size=1024`;
+      avatarImg.src = avatarUrl;
+    } else {
+      // Set a default avatar if user has no avatar
+      avatarImg.src = 'https://cdn.discordapp.com/embed/avatars/0.png';
+    }
+  } catch (error) {
+    console.error('Error fetching Discord avatar:', error);
+  }
+}
+
+// Call the function to fetch the avatar
+fetchDiscordAvatar();
+
 function dark() {
   toggle.checked = true;
   document.body.classList.add("dark-mode");
