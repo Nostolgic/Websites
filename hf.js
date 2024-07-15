@@ -43,17 +43,11 @@ async function fetchDiscordAvatar() {
   const userId = avatarImg.getAttribute('data-user-id');
   
   try {
-    const response = await fetch(`https://discord.com/api/users/${userId}`, {
-      headers: {
-        'Authorization': `Bot MTI2MjM5MjA5NDI2MjMwMDcxNQ.GRgeyw.PagP9mAThIjFWGbZtbdTQjWaHJ-A3h5ZaKyXFY`
-      }
-    });
+    const response = await fetch(`/.netlify/functions/discordAvatar?userId=${userId}`);
     const data = await response.json();
-    if (data.avatar) {
-      const avatarUrl = `https://cdn.discordapp.com/avatars/${userId}/${data.avatar}.png?size=1024`;
-      avatarImg.src = avatarUrl;
+    if (data.avatarUrl) {
+      avatarImg.src = data.avatarUrl;
     } else {
-      // Set a default avatar if user has no avatar
       avatarImg.src = 'https://cdn.discordapp.com/embed/avatars/0.png';
     }
   } catch (error) {
